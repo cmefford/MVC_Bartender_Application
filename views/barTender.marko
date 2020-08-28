@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>Manage barTenders</title>
+
+        <link rel="stylesheet" type="text/css" href="/js/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/js/bootstrap.min.css"/>
+
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/datatables.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                var barTenders = ${input.barTenders}
+                for (var x = 0; x < barTenders.length; x++){
+                    $("#tableBody").append('<tr> <td>' + barTenders[x][0] + '</td> <td>' + barTenders[x][1] + '</td> <td>' + barTenders[x][2] + '</td> <td>' + barTenders[x][3] + '</td> <td>' + '<button class="manage" onclick="manage(' + barTenders[x][0] + ', 0)"> Delete </button>' + '</td> <td>' + '<button class="manage" onclick="manage(' + barTenders[x][0] + ', 1)"> Edit </button>' + '</td> </tr>')
+                
+                }
+                var email,pass
+                $("#logOut").click(function(){
+                  email="";
+                  pass="";
+                  $.post("/login",{email:email,pass:pass},function(data){
+                      if(data==='done') {
+                          window.location.href="/logout"
+                      }
+                  })
+                })
+                $("#addbarTender").click(function() {
+                window.location.href="/addbarTender"
+                })
+                $("#manage").click(function() {
+                window.location.href="/admin"
+                })
+
+                
+                $('#table').DataTable();
+
+            });
+            function manage(id, option) {
+                    if (option == 0){
+                        $.post("/deletebarTender",{id:id},function(data){
+                            if(data==='done') {
+                                window.location.href="/barTender"
+                            }
+                        })
+                    }
+                    if (option == 1){
+                        window.location.href="/editbarTender/" + id
+                    }
+                }
+        </script>
+    </head>
+    <body>
+        
+        <div class="navbar">
+            <h1>${input.greeting}</h1>
+            <input type="button" value="log out" id="logOut" onclick("logOut")>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h2 style="padding-left: 0;">barTenders to manage</h2>
+
+                <table id="table">
+                    <thead>
+                        <th>id</th>
+                        <th>first name</th>
+                        <th>last name</th>
+                        <th>user name</th>
+                        <th data-orderable="false">delete</th>
+                        <th data-orderable="false">edit</th>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-3" style="padding-left: 0;">
+                        <input type="button" value="Add barTender" id="addbarTender">
+                    </div>
+                    <div class="col-3" style="padding-left: 0;">
+                        <input type="button" value="Manage" id="manage">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

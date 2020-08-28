@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>Manage Opportunities</title>
+
+        <link rel="stylesheet" type="text/css" href="/js/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/js/bootstrap.min.css"/>
+
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/datatables.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        
+        <script>
+            $(document).ready(function(){
+                var opportunities = ${input.opportunities}
+                var tableData = ''
+                for (var x = 0; x < opportunities.length; x++){
+                    $("#tableBody").append('<tr> <td>' + opportunities[x][0] + '</td> <td>' + opportunities[x][1] + '</td> <td>' + opportunities[x][2] + '</td> <td>' + opportunities[x][3] + '</td> <td>' + opportunities[x][4] + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 0)"> Delete </button>' + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 1)"> Edit </button>' + '</td> </tr>')
+                }
+            var email,pass
+            $("#logOut").click(function(){
+                  email="";
+                  pass="";
+                  
+                  $.post("/login",{email:email,pass:pass},function(data){
+                      if(data==='done') {
+                          window.location.href="/logout"
+                      }
+                  })
+            })
+            $("#addOpportunity").click(function() {
+                window.location.href="/addOpportunity"
+            })
+            $("#manage").click(function() {
+                window.location.href="/admin"
+            })
+            
+            $("#table").DataTable()
+            
+            });
+
+            function manage(id, option) {
+                    if (option == 0){
+                        $.post("/deleteOpportunity",{id:id},function(data){
+                            if(data==='done') {
+                                window.location.href="/drinker"
+                            }
+                        })
+                    }
+                    if (option == 1){
+                        window.location.href="/editOpportunity/" + id
+                    }
+                }
+
+            </script>
+    </head>
+    <body>
+        <div class="navbar">
+            <h1>${input.greeting}</h1>
+            <input type="button" value="log out" id="logOut" onclick("logOut")>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h2 style="padding-left: 0;">Opportunities to manage</h2>
+                <table id="table">
+                    <thead>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th data-orderable="false">delete</th>
+                        <th data-orderable="false">edit</th>
+                        
+
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-3" style="padding-left: 0;">
+                            <input type="button" value="Add Opportunity" id="addOpportunity">
+                        </div>
+                        <div class="col-3" style="padding-left: 0;">
+                            <input type="button" value="Manage" id="manage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
