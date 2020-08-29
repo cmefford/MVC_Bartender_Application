@@ -2,15 +2,16 @@ const volunteer = require("./classes/volunteer")
 const opportunity = require("./classes/opportunity")
 const database = require("./db/database")
 const user = require("./classes/user");
+const drink = require("./classes/drink");
 const { pool } = require("./db/database");
 
 const mainController = (router, views) => {
     //define routes
     var index = require(views + 'index')
     var manageWhat = require(views + 'manageWhat')
-    var manageVolunteers = require(views + 'manageVolunteers')
+    var orders = require(views + 'orders')
     var addVolunteer = require(views + 'addVolunteer')
-    var manageOpportunities = require(views + 'manageOpportunities')
+    var menu = require(views + 'menu')
     var addOpportunity = require(views + 'addOpportunity')
     var editVolunteer = require(views + 'editVolunteer')
     var editOpportunity = require(views + 'editOpportunity')
@@ -43,8 +44,12 @@ const mainController = (router, views) => {
     })
 
 
+    router.post('/menu',(request,response) => {
+        request.session.drink = new drink.Drink(request.body.drink)
+        response.end('done') 
+    })
 
-    router.get('/manageVolunteers',(request,response)  => {
+    router.get('/orders',(request,response)  => {
         if(request.session.user) {
             async function runme() {
                 const client = await database.pool.connect()
@@ -56,7 +61,7 @@ const mainController = (router, views) => {
                 })
                 client.release()
                 var greeting = "Hello " + request.session.user.email
-                response.marko(manageVolunteers, { greeting: greeting , volunteers: JSON.stringify(result.rows)})
+                response.marko(orders, { greeting: greeting , volunteers: JSON.stringify(result.rows)})
             }
             runme()
         }
@@ -99,8 +104,10 @@ const mainController = (router, views) => {
             await database.addVolunteer(volunteerObj)
         }
         runme()
-        response.redirect('/manageVolunteers')
+        response.redirect('/orders')
     })
+
+    
 
     router.get('/editVolunteer/:volunteerId',(request,response) => {
         if(request.session.user) {
@@ -156,7 +163,7 @@ const mainController = (router, views) => {
             await database.editVolunteer(volunteerObj, request.params.volunteerId)
         }
         runme()
-        response.redirect('/manageVolunteers')
+        response.redirect('/orders')
     })
 
     
@@ -166,7 +173,7 @@ const mainController = (router, views) => {
             await database.editOpportunity(opportunityObj, request.params.opportunityId)
         }
         runme()
-        response.redirect('/manageOpportunities')
+        response.redirect('/menu')
     })
 
     router.post('/deleteVolunteer',(request,response) => {
@@ -185,7 +192,7 @@ const mainController = (router, views) => {
         response.end('done') 
     })
 
-    router.get('/manageOpportunities',(request,response) => {
+    router.get('/menu',(request,response) => {
         if(request.session.user) {
             async function runme() {
                 const client = await database.pool.connect()
@@ -197,7 +204,7 @@ const mainController = (router, views) => {
                 })
                 client.release()
                 var greeting = "Hello " + request.session.user.email
-                response.marko(manageOpportunities, { greeting: greeting , opportunities: JSON.stringify(result.rows)})
+                response.marko(menu, { greeting: greeting , opportunities: JSON.stringify(result.rows)})
                 
                 
             }
@@ -226,7 +233,7 @@ const mainController = (router, views) => {
             await database.addOpportunity(opportunityObj)
         }
         runme()
-        response.redirect('/manageOpportunities')
+        response.redirect('/menu')
         // response.end('done') 
     })
 

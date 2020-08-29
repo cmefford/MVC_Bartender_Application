@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 
-
+class {
+    handleChange() {
+        // Only emit email-changes if they are valid.
+        // this.emit("email-change", { email: $('#emailid') });
+        $.post("/menu",function(data){
+            if(data==='done') {
+                window.location.href="/admin";
+            }
+        });
+    }
+  }
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
     <head>
         <title>Manage Opportunities</title>
@@ -14,11 +24,33 @@
         
         <script>
             $(document).ready(function(){
+
+            var drink
+            $("#submit").click(function(){
+                drink=$("#drink").val()
+                
+                $.post("/menu",{drink:drink},function(data){
+                    if(data==='done' && drink !='') {
+                        window.location.href="/admin"
+                    }
+                    else{
+                        alert("Please Input Drink")
+                    }
+                })
+            })
+
+                
+
+
+
+
+
                 var opportunities = ${input.opportunities}
                 var tableData = ''
-                for (var x = 0; x < opportunities.length; x++){
-                    $("#tableBody").append('<tr> <td>' + opportunities[x][0] + '</td> <td>' + opportunities[x][1] + '</td> <td>' + opportunities[x][2] + '</td> <td>' + opportunities[x][3] + '</td> <td>' + opportunities[x][4] + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 0)"> Delete </button>' + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 1)"> Edit </button>' + '</td> </tr>')
-                }
+                //removed to modifiy table
+                // for (var x = 0; x < opportunities.length; x++){
+                //     $("#tableBody").append('<tr> <td>' + opportunities[x][0] + '</td> <td>' + opportunities[x][1] + '</td> <td>' + opportunities[x][2] + '</td> <td>' + opportunities[x][3] + '</td> <td>' + opportunities[x][4] + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 0)"> Delete </button>' + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 1)"> Edit </button>' + '</td> </tr>')
+                // }
             var email,pass
             $("#logOut").click(function(){
                   email="";
@@ -45,7 +77,7 @@
                     if (option == 0){
                         $.post("/deleteOpportunity",{id:id},function(data){
                             if(data==='done') {
-                                window.location.href="/manageOpportunities"
+                                window.location.href="/menu"
                             }
                         })
                     }
@@ -63,8 +95,8 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-8">
-                <h2 style="padding-left: 0;">Opportunities to manage</h2>
-                <table id="table">
+                <h2 style="padding-left: 0;">Menu</h2>
+                <!-- <table id="table">
                     <thead>
                         <th>Id</th>
                         <th>Name</th>
@@ -73,13 +105,30 @@
                         <th>Phone Number</th>
                         <th data-orderable="false">delete</th>
                         <th data-orderable="false">edit</th>
-                        
 
                     </thead>
                     <tbody id="tableBody">
                     </tbody>
-                </table>
+                </table> -->
+
                 <div class="form-group">
+                    <div class="row">
+                        <label class="form-label" for="drink">Custom Drink: </label>
+                        <input class="form-control" type="text" id="drink" name="drink"><br><br>
+                    </div>
+                </div>
+
+                <input type="checkbox" id="vodkaCran" name="vodkaCran" value="vodkaCran">
+                <label for="vodkaCran"> Vodka Cranbarry</label><br>
+                <input type="checkbox" id="rumCoke" name="rumCoke" value="rumCoke">
+                <label for="rumCoke"> Rum & Coke</label><br>
+                <input type="checkbox" id="billCosby" name="billCosby" value="billCosby">
+                <label for="billCosby"> Bill Cosby</label><br>
+                <input type="checkbox" id="screwDriver" name="screwDriver" value="screwDriver">
+                <label for="screwDriver"> Screw Driver</label><br><br>
+                <input type="submit" value="Submit" id="submit" onclick("handleChange")>
+
+                <!-- <div class="form-group">
                     <div class="row">
                         <div class="col-3" style="padding-left: 0;">
                             <input type="button" value="Add Opportunity" id="addOpportunity">
@@ -88,6 +137,9 @@
                             <input type="button" value="Manage" id="manage">
                         </div>
                     </div>
+                </div> -->
+                <div class="col-3" style="padding-left: 0;">
+                    <input type="button" value="Manage" id="manage">
                 </div>
             </div>
         </div>

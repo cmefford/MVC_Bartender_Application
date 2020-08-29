@@ -42,7 +42,7 @@
                     if (option == 0){
                         $.post("/deleteVolunteer",{id:id},function(data){
                             if(data==='done') {
-                                window.location.href="/manageVolunteers"
+                                window.location.href="/orders"
                             }
                         })
                     }
@@ -60,9 +60,13 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-8">
-                <h2 style="padding-left: 0;">Volunteers to manage</h2>
+                <h2 style="padding-left: 0;">Orders</h2>
 
-                <table id="table">
+
+                
+
+
+                <!-- <table id="table">
                     <thead>
                         <th>id</th>
                         <th>first name</th>
@@ -73,12 +77,12 @@
                     </thead>
                     <tbody id="tableBody">
                     </tbody>
-                </table>
+                </table> -->
 
                 <div class="row">
-                    <div class="col-3" style="padding-left: 0;">
+                    <!-- <div class="col-3" style="padding-left: 0;">
                         <input type="button" value="Add Volunteer" id="addVolunteer">
-                    </div>
+                    </div> -->
                     <div class="col-3" style="padding-left: 0;">
                         <input type="button" value="Manage" id="manage">
                     </div>
