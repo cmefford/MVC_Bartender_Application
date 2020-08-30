@@ -39,8 +39,6 @@ class {
                 })
             })
 
-       
-
             var email,pass
             $("#logOut").click(function(){
                   email="";
@@ -63,41 +61,32 @@ class {
     </head>
     <body>
         <div class="navbar">
-            <h1>${input.greeting}</h1>
             <input type="button" value="log out" id="logOut" onclick("logOut")>
         </div>
         <div class="row justify-content-center">
             <div class="col-8">
-                <h2 style="padding-left: 0;">Menu</h2>
+                <h1 style="padding-left: 0;">Menu</h1>
+                <form action="/menu" method="post" name = "menu">
 
-
-                <div class="form-group">
-                    <div class="row">
-                        <label class="form-label" for="drink">Custom Drink: </label>
-                        <input class="form-control" type="text" id="drink" name="drink"><br><br>
-                    </div>
-                </div>
-
-                <input type="checkbox" id="vodkaCran" name="vodkaCran" value="vodkaCran">
+                <h2 style="padding-left: 0;">Vodka</h2>
+                <input type="checkbox" id="vodkaCran" name="drink" value="vodkaCran">
                 <label for="vodkaCran"> Vodka Cranbarry</label><br>
-                <input type="checkbox" id="rumCoke" name="rumCoke" value="rumCoke">
-                <label for="rumCoke"> Rum & Coke</label><br>
-                <input type="checkbox" id="billCosby" name="billCosby" value="billCosby">
-                <label for="billCosby"> Bill Cosby</label><br>
-                <input type="checkbox" id="screwDriver" name="screwDriver" value="screwDriver">
-                <label for="screwDriver"> Screw Driver</label><br><br>
-                <input type="submit" value="Submit" id="submit" onclick("handleChange")>
+                <input type="checkbox" id="vodkaCran" name="drink" value="vodkaCran">
+                <label for="vodkaCran"> Vodka Cranbarry</label><br>
 
-                <!-- <div class="form-group">
-                    <div class="row">
-                        <div class="col-3" style="padding-left: 0;">
-                            <input type="button" value="Add Opportunity" id="addOpportunity">
-                        </div>
-                        <div class="col-3" style="padding-left: 0;">
-                            <input type="button" value="Manage" id="manage">
-                        </div>
-                    </div>
-                </div> -->
+
+
+
+                <input type="checkbox" id="rumCoke" name="drink" value="rumCoke">
+                <label for="rumCoke"> Rum & Coke</label><br>
+                <input type="checkbox" id="billCosby" name="drink" value="billCosby">
+                <label for="billCosby"> Bill Cosby</label><br>
+                <input type="checkbox" id="screwDriver" name="drink" value="screwDriver">
+                <label for="screwDriver"> Screw Driver</label><br><br>
+                <label for="customDrink">Custom Drink:</label>
+                <input type="text" id="customDrink" name="drink"><br><br>
+
+            </form>
                 <div class="col-3" style="padding-left: 0;">
                     <input type="button" value="Manage" id="manage">
                 </div>

@@ -22,6 +22,17 @@
                       }
                   })
                 })
+
+                $("#complete").click(function(){
+                    alert("complete has  been cklickdlsfjd")
+                  drink="";
+                  $.post("/menu",{drink:drink},function(data){
+                      if(data==='done') {
+                          window.location.href="/admin"
+                      }
+                  })
+                })
+
                 $("#addVolunteer").click(function() {
                 window.location.href="/addVolunteer"
                 })
@@ -48,36 +59,24 @@
         
         <div class="navbar">
             <!-- <h1>${input.greeting}</h1> -->
-            <h1>${input.drink}</h1>
+            <h1 style="padding-left: 0;">Orders:</h1>
+
+            <h2>${input.drink}</h2>
             <input type="button" value="log out" id="logOut" onclick("logOut")>
         </div>
         <div class="row justify-content-center">
             <div class="col-8">
-                <h2 style="padding-left: 0;">Orders</h2>
 
-
-                
-
-
-                <!-- <table id="table">
-                    <thead>
-                        <th>id</th>
-                        <th>first name</th>
-                        <th>last name</th>
-                        <th>user name</th>
-                        <th data-orderable="false">delete</th>
-                        <th data-orderable="false">edit</th>
-                    </thead>
-                    <tbody id="tableBody">
-                    </tbody>
-                </table> -->
 
                 <div class="row">
-                    <!-- <div class="col-3" style="padding-left: 0;">
-                        <input type="button" value="Add Volunteer" id="addVolunteer">
-                    </div> -->
                     <div class="col-3" style="padding-left: 0;">
-                        <input type="button" value="Manage" id="manage">
+                        <input type="button" value="Home Page" id="manage">
+                    </div>
+                </div><br>
+
+                <div class="row">
+                    <div class="col-3" style="padding-left: 0;">
+                        <input type="button" value="Complete" id="complete" onclick("complete")>
                     </div>
                 </div>
             </div>
