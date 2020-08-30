@@ -24,7 +24,6 @@
                 })
 
                 $("#complete").click(function(){
-                    alert("complete has  been cklickdlsfjd")
                   drink="";
                   $.post("/menu",{drink:drink},function(data){
                       if(data==='done') {
