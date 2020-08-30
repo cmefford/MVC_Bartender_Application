@@ -182,27 +182,27 @@ const mainController = (router, views) => {
     })
 
     router.get('/menu',(request,response) => {
-        if(request.session.user) {
-            async function runme() {
-                const client = await database.pool.connect()
-                var queryString = 'SELECT * FROM opportunity'
-                console.log(queryString)
-                const result = await client.query({
-                    text: queryString,
-                    rowMode: 'array',
-                })
-                client.release()
+        // if(request.session.user) {
+        //     async function runme() {
+        //         const client = await database.pool.connect()
+        //         var queryString = 'SELECT * FROM opportunity'
+        //         console.log(queryString)
+        //         const result = await client.query({
+        //             text: queryString,
+        //             rowMode: 'array',
+        //         })
+        //         client.release()
                 var greeting = "Hello " + request.session.user.email
-                response.marko(menu, { greeting: greeting , opportunities: JSON.stringify(result.rows)})
+                response.marko(menu, { greeting: greeting })
                 
                 
-            }
-            runme()
-        }
-        else {
-            response.write('<h1>Please login first.</h1>')
-            response.end('<a href='+'/'+'>Login</a>')
-        }
+        //     }
+        //     runme()
+        // }
+        // else {
+        //     response.write('<h1>Please login first.</h1>')
+        //     response.end('<a href='+'/'+'>Login</a>')
+        // }
     })
     router.get('/addOpportunity',(request,response) => {
         if(request.session.user) {
