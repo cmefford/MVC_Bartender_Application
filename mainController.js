@@ -182,7 +182,7 @@ const mainController = (router, views) => {
     })
 
     router.get('/menu',(request,response) => {
-        // if(request.session.user) {
+        if(request.session.user) {
         //     async function runme() {
         //         const client = await database.pool.connect()
         //         var queryString = 'SELECT * FROM opportunity'
@@ -196,13 +196,13 @@ const mainController = (router, views) => {
                 response.marko(menu, { greeting: greeting })
                 
                 
-        //     }
+            }
         //     runme()
         // }
-        // else {
-        //     response.write('<h1>Please login first.</h1>')
-        //     response.end('<a href='+'/'+'>Login</a>')
-        // }
+        else {
+            response.write('<h1>Please login first.</h1>')
+            response.end('<a href='+'/'+'>Login</a>')
+        }
     })
     router.get('/addOpportunity',(request,response) => {
         if(request.session.user) {

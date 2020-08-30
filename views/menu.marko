@@ -68,25 +68,21 @@ class {
                 <h1 style="padding-left: 0;">Menu</h1>
                 <form action="/menu" method="post" name = "menu">
 
-                <h2 style="padding-left: 0;">Vodka</h2>
                 <input type="checkbox" id="vodkaCran" name="drink" value="vodkaCran">
                 <label for="vodkaCran"> Vodka Cranbarry</label><br>
-                <input type="checkbox" id="vodkaCran" name="drink" value="vodkaCran">
-                <label for="vodkaCran"> Vodka Cranbarry</label><br>
-
-
-
-
                 <input type="checkbox" id="rumCoke" name="drink" value="rumCoke">
                 <label for="rumCoke"> Rum & Coke</label><br>
-                <input type="checkbox" id="billCosby" name="drink" value="billCosby">
-                <label for="billCosby"> Bill Cosby</label><br>
+                <input type="checkbox" id="longIslandIceTea" name="drink" value="longIslandIceTea">
+                <label for="longIslandIceTea">longIslandIceTea</label><br>
                 <input type="checkbox" id="screwDriver" name="drink" value="screwDriver">
                 <label for="screwDriver"> Screw Driver</label><br><br>
                 <label for="customDrink">Custom Drink:</label>
                 <input type="text" id="customDrink" name="drink"><br><br>
+                <input type="submit" value="Submit" id="submit" onclick("handleChange")>
 
             </form>
+
+
                 <div class="col-3" style="padding-left: 0;">
                     <input type="button" value="Manage" id="manage">
                 </div>
