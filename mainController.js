@@ -10,7 +10,6 @@ const mainController = (router, views) => {
     var index = require(views + 'index')
     var manageWhat = require(views + 'manageWhat')
     var orders = require(views + 'orders')
-    var addVolunteer = require(views + 'addVolunteer')
     var menu = require(views + 'menu')
     var addOpportunity = require(views + 'addOpportunity')
     var editVolunteer = require(views + 'editVolunteer')
@@ -59,41 +58,6 @@ const mainController = (router, views) => {
             response.end('<a href='+'/'+'>Home Page</a>')
         }
         
-    })
-
-    router.get('/addVolunteer',(request,response) => {
-        
-        if(request.session.user) {
-            async function runme() {
-                const client = await database.pool.connect()
-                var queryString = 'SELECT * FROM opportunity'
-                console.log(queryString)
-                const result = await client.query({
-                    text: queryString,
-                    rowMode: 'array',
-                })
-                client.release()
-                var greeting = "Hello " + request.session.user.email
-                response.marko(addVolunteer, { greeting: greeting , opportunities: JSON.stringify(result.rows)})
-                
-                
-            }
-            runme()
-        }
-        else {
-            response.write('<h1>Please login first.</h1>')
-            response.end('<a href='+'/'+'>Login</a>')
-        }
-        
-    })
-
-    router.post('/addVolunteer',(request,response) => {
-        volunteerObj = volunteer.requestToObject(request)
-        async function runme() {
-            await database.addVolunteer(volunteerObj)
-        }
-        runme()
-        response.redirect('/orders')
     })
 
     
@@ -183,22 +147,10 @@ const mainController = (router, views) => {
 
     router.get('/menu',(request,response) => {
         if(request.session.user) {
-        //     async function runme() {
-        //         const client = await database.pool.connect()
-        //         var queryString = 'SELECT * FROM opportunity'
-        //         console.log(queryString)
-        //         const result = await client.query({
-        //             text: queryString,
-        //             rowMode: 'array',
-        //         })
-        //         client.release()
-                var greeting = "Hello " + request.session.user.email
-                response.marko(menu, { greeting: greeting })
-                
+                     var greeting = "Hello " + request.session.user.email
+                response.marko(menu, { greeting: greeting }) 
                 
             }
-        //     runme()
-        // }
         else {
             response.write('<h1>Please login first.</h1>')
             response.end('<a href='+'/'+'>Login</a>')
@@ -223,7 +175,6 @@ const mainController = (router, views) => {
         }
         runme()
         response.redirect('/menu')
-        // response.end('done') 
     })
 
     router.get('/logout',(request,response) => {
