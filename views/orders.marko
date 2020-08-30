@@ -12,11 +12,6 @@
 
         <script>
             $(document).ready(function(){
-                var volunteers = ${input.volunteers}
-                for (var x = 0; x < volunteers.length; x++){
-                    $("#tableBody").append('<tr> <td>' + volunteers[x][0] + '</td> <td>' + volunteers[x][1] + '</td> <td>' + volunteers[x][2] + '</td> <td>' + volunteers[x][3] + '</td> <td>' + '<button class="manage" onclick="manage(' + volunteers[x][0] + ', 0)"> Delete </button>' + '</td> <td>' + '<button class="manage" onclick="manage(' + volunteers[x][0] + ', 1)"> Edit </button>' + '</td> </tr>')
-                
-                }
                 var email,pass
                 $("#logOut").click(function(){
                   email="";
@@ -33,9 +28,6 @@
                 $("#manage").click(function() {
                 window.location.href="/admin"
                 })
-
-                
-                $('#table').DataTable();
 
             });
             function manage(id, option) {
@@ -55,7 +47,8 @@
     <body>
         
         <div class="navbar">
-            <h1>${input.greeting}</h1>
+            <!-- <h1>${input.greeting}</h1> -->
+            <h1>${input.drink}</h1>
             <input type="button" value="log out" id="logOut" onclick("logOut")>
         </div>
         <div class="row justify-content-center">

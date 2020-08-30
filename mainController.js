@@ -32,7 +32,6 @@ const mainController = (router, views) => {
     })
 
     router.get('/admin',(request,response) => {
-        
         if(request.session.user) {
             var greeting = "Hello " + request.session.user.email
             response.marko(manageWhat, { greeting: greeting })
@@ -50,24 +49,21 @@ const mainController = (router, views) => {
     })
 
     router.get('/orders',(request,response)  => {
-        if(request.session.user) {
-            async function runme() {
-                const client = await database.pool.connect()
-                var queryString = 'SELECT * FROM volunteer'
-                console.log(queryString)
-                const result = await client.query({
-                    text: queryString,
-                    rowMode: 'array',
-                })
-                client.release()
-                var greeting = "Hello " + request.session.user.email
-                response.marko(orders, { greeting: greeting , volunteers: JSON.stringify(result.rows)})
-            }
-            runme()
+
+
+
+        // if(request.session.user) {
+        //     var greeting = "Hello " + request.session.user.email
+        //     response.marko(orders, { greeting: greeting })
+        // }
+        if(request.session.drink) {
+            var drink = "Please make a " + request.session.drink.drink
+            response.marko(orders, { drink: drink })
         }
         else {
-            response.write('<h1>Please login first.</h1>')
-            response.end('<a href='+'/'+'>Login</a>')
+            // response.write('<h1>Please login first.</h1>')
+            response.write('<h1>No orders so far...</h1>')
+            // response.end('<a href='+'/'+'>Login</a>')
         }
         
     })

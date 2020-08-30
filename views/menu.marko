@@ -3,7 +3,7 @@
 class {
     handleChange() {
         // Only emit email-changes if they are valid.
-        // this.emit("email-change", { email: $('#emailid') });
+        this.emit("email-change", { drink: $('#drink') });
         $.post("/menu",function(data){
             if(data==='done') {
                 window.location.href="/admin";
@@ -39,18 +39,8 @@ class {
                 })
             })
 
-                
+       
 
-
-
-
-
-                var opportunities = ${input.opportunities}
-                var tableData = ''
-                //removed to modifiy table
-                // for (var x = 0; x < opportunities.length; x++){
-                //     $("#tableBody").append('<tr> <td>' + opportunities[x][0] + '</td> <td>' + opportunities[x][1] + '</td> <td>' + opportunities[x][2] + '</td> <td>' + opportunities[x][3] + '</td> <td>' + opportunities[x][4] + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 0)"> Delete </button>' + '</td> <td>' + '<button class="manage" onclick="manage(' + opportunities[x][0] + ', 1)"> Edit </button>' + '</td> </tr>')
-                // }
             var email,pass
             $("#logOut").click(function(){
                   email="";
@@ -62,29 +52,12 @@ class {
                       }
                   })
             })
-            $("#addOpportunity").click(function() {
-                window.location.href="/addOpportunity"
-            })
+
             $("#manage").click(function() {
                 window.location.href="/admin"
             })
-            
-            $("#table").DataTable()
-            
+                        
             });
-
-            function manage(id, option) {
-                    if (option == 0){
-                        $.post("/deleteOpportunity",{id:id},function(data){
-                            if(data==='done') {
-                                window.location.href="/menu"
-                            }
-                        })
-                    }
-                    if (option == 1){
-                        window.location.href="/editOpportunity/" + id
-                    }
-                }
 
             </script>
     </head>
@@ -96,20 +69,7 @@ class {
         <div class="row justify-content-center">
             <div class="col-8">
                 <h2 style="padding-left: 0;">Menu</h2>
-                <!-- <table id="table">
-                    <thead>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Phone Number</th>
-                        <th data-orderable="false">delete</th>
-                        <th data-orderable="false">edit</th>
 
-                    </thead>
-                    <tbody id="tableBody">
-                    </tbody>
-                </table> -->
 
                 <div class="form-group">
                     <div class="row">
